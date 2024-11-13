@@ -1,6 +1,7 @@
 package com.example.lsi.web;
 
 import com.example.lsi.data.Dates;
+import com.example.lsi.service.CarNotFoundException;
 import com.example.lsi.service.RentalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,8 @@ public class RentalWebService {
     }
 
     @PutMapping("/cars/{plaque}")
-    public void rent(@PathVariable("plaque") String plateNumber, 
-                     @RequestBody Dates dates) throws ParseException {
+    public void rent(@PathVariable("plaque") String plateNumber,
+                     @RequestBody Dates dates) throws ParseException, CarNotFoundException {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy");
         simpleDateFormat.parse(dates.getBegin());
