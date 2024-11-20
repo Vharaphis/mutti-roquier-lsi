@@ -20,4 +20,12 @@ public class Dates {
     public void setEnd(String end) {
         this.end = end;
     }
+
+    @Override
+    public String toString() {
+        return "Dates{" +
+                "begin='" + begin + '\'' +
+                ", end='" + end + '\'' +
+                '}';
+    }
 }

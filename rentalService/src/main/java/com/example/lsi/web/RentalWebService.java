@@ -1,5 +1,6 @@
 package com.example.lsi.web;
 
+import com.example.lsi.data.Car;
 import com.example.lsi.data.Dates;
 import com.example.lsi.service.CarNotFoundException;
 import com.example.lsi.service.RentalService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @RestController
 public class RentalWebService {
@@ -29,8 +31,14 @@ public class RentalWebService {
         return "Hello !";
     }
 
+    @GetMapping("/cars")
+    public List<Car> listCars(){
+        return rentalService.getCars();
+    }
+
     @PutMapping("/cars/{plaque}")
     public void rent(@PathVariable("plaque") String plateNumber,
+                     @RequestParam("rent") boolean rent,
                      @RequestBody Dates dates) throws ParseException, CarNotFoundException {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy");
@@ -38,6 +46,9 @@ public class RentalWebService {
         simpleDateFormat.parse(dates.getEnd());
 
         logger.info("PlateNumber: "+ plateNumber);
+        logger.info("Rent: "+ rent);
+        logger.info("Dates: "+ dates);
+
         rentalService.rent(plateNumber);
     }
 }
